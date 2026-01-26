@@ -1,0 +1,163 @@
+# Code Analysis Rules Configuration
+
+# Security Vulnerabilities
+security:
+  sql_injection:
+    severity: critical
+    enabled: true
+    description: "Potential SQL injection vulnerability"
+    patterns:
+      - "execute.*\\+.*"
+      - "query.*\\+.*"
+      - "raw.*sql"
+  
+  xss:
+    severity: critical
+    enabled: true
+    description: "Potential XSS vulnerability"
+    patterns:
+      - "dangerouslySetInnerHTML"
+      - "innerHTML.*="
+      - "eval\\("
+  
+  secrets_exposure:
+    severity: critical
+    enabled: true
+    description: "Exposed API keys or secrets"
+    patterns:
+      - "api[_-]?key.*=.*['\"][a-zA-Z0-9]{20,}"
+      - "secret.*=.*['\"][a-zA-Z0-9]{20,}"
+      - "password.*=.*['\"].+"
+  
+  insecure_auth:
+    severity: high
+    enabled: true
+    description: "Insecure authentication pattern"
+    patterns:
+      - "localStorage.*token"
+      - "sessionStorage.*password"
+
+# Logic Bugs
+logic:
+  null_dereference:
+    severity: high
+    enabled: true
+    description: "Potential null/undefined access"
+    
+  race_condition:
+    severity: high
+    enabled: true
+    description: "Potential race condition"
+    
+  infinite_loop:
+    severity: medium
+    enabled: true
+    description: "Potential infinite loop"
+    patterns:
+      - "while\\s*\\(\\s*true\\s*\\)"
+      - "for\\s*\\(\\s*;\\s*;\\s*\\)"
+
+# Type Safety
+type_safety:
+  missing_types:
+    severity: medium
+    enabled: true
+    description: "Missing type annotations"
+    
+  any_abuse:
+    severity: medium
+    enabled: true
+    description: "Excessive use of 'any' type"
+    patterns:
+      - ":\\s*any"
+      - "<any>"
+
+# Error Handling
+error_handling:
+  unhandled_promise:
+    severity: high
+    enabled: true
+    description: "Unhandled promise rejection"
+    patterns:
+      - "async.*\\{[^}]*(?!catch)[^}]*\\}"
+      
+  missing_try_catch:
+    severity: medium
+    enabled: true
+    description: "Missing error handling"
+    
+  silent_failure:
+    severity: medium
+    enabled: true
+    description: "Silent error suppression"
+    patterns:
+      - "catch.*\\{\\s*\\}"
+      - "catch.*\\{\\s*//.*\\}"
+
+# Performance
+performance:
+  n_plus_one:
+    severity: medium
+    enabled: true
+    description: "Potential N+1 query problem"
+    
+  memory_leak:
+    severity: high
+    enabled: true
+    description: "Potential memory leak"
+    patterns:
+      - "setInterval.*(?!clearInterval)"
+      - "addEventListener.*(?!removeEventListener)"
+
+# Code Quality
+quality:
+  long_function:
+    severity: low
+    enabled: true
+    description: "Function too long (>50 lines)"
+    threshold: 50
+    
+  high_complexity:
+    severity: medium
+    enabled: true
+    description: "High cyclomatic complexity"
+    threshold: 10
+    
+  duplicated_code:
+    severity: low
+    enabled: true
+    description: "Duplicated code detected"
+
+# File Patterns
+file_patterns:
+  include:
+    - "**/*.ts"
+    - "**/*.tsx"
+    - "**/*.js"
+    - "**/*.jsx"
+    - "**/*.py"
+  
+  exclude:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/*.test.ts"
+    - "**/*.spec.ts"
+    - "**/*.test.js"
+    - "**/*.spec.js"
+    - "**/coverage/**"
+    - "**/.next/**"
+
+# Severity Levels
+severity_levels:
+  critical: 4
+  high: 3
+  medium: 2
+  low: 1
+
+# Thresholds
+thresholds:
+  fail_build_on_critical: false
+  fail_build_on_high: false
+  max_issues_per_file: 50
+  min_confidence_score: 70
