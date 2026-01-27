@@ -32,25 +32,25 @@ export function AppointmentCard({
     const endTime = new Date(appointment.end_time)
 
     const statusColors = {
-        pending: 'bg-warning-100 dark:bg-warning-900/30 text-warning-700 dark:text-warning-300',
-        confirmed: 'bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300',
-        cancelled: 'bg-error-100 dark:bg-error-900/30 text-error-700 dark:text-error-300',
-        completed: 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300',
+        pending: 'bg-warning-soft text-warning-text',
+        confirmed: 'bg-success-soft text-success-text',
+        cancelled: 'bg-error-soft text-error-text',
+        completed: 'bg-cream-300 text-ink-700',
     }
 
     const otherParty = userRole === 'client' ? appointment.professional : appointment.client
 
     return (
-        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all duration-200 hover:shadow-md">
+        <div className="group rounded-2xl bg-cream-100 p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-tactile-lg shadow-tactile-sm border border-transparent hover:border-sage-200">
             <div className="flex items-start justify-between">
                 <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                    <div className="flex items-center gap-3">
+                        <h3 className="font-serif text-xl font-bold text-ink-900">
                             {appointment.title}
                         </h3>
                         <span
                             className={cn(
-                                'rounded-full px-2 py-0.5 text-xs font-medium',
+                                'rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase',
                                 statusColors[appointment.status]
                             )}
                         >
@@ -58,12 +58,12 @@ export function AppointmentCard({
                         </span>
                     </div>
                     {appointment.description && (
-                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p className="mt-2 text-base text-ink-700 font-sans leading-relaxed">
                             {appointment.description}
                         </p>
                     )}
-                    <div className="mt-3 flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                        <div className="flex items-center gap-1">
+                    <div className="mt-4 flex items-center gap-6 text-sm font-medium text-ink-500">
+                        <div className="flex items-center gap-2">
                             <svg
                                 className="h-4 w-4"
                                 fill="none"
@@ -79,7 +79,7 @@ export function AppointmentCard({
                             </svg>
                             {formatDate(startTime)}
                         </div>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-2">
                             <svg
                                 className="h-4 w-4"
                                 fill="none"
@@ -97,16 +97,16 @@ export function AppointmentCard({
                         </div>
                     </div>
                     {otherParty && (
-                        <div className="mt-2 flex items-center gap-2">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 text-xs font-semibold text-white">
+                        <div className="mt-4 flex items-center gap-3 border-t border-cream-200 pt-4">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sage-200 text-sage-800 text-sm font-bold shadow-tactile-sm">
                                 {otherParty.full_name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)}
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                <p className="text-sm font-bold text-ink-900">
                                     {otherParty.full_name}
                                 </p>
                                 {userRole === 'client' && appointment.professional?.specialty && (
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    <p className="text-xs text-ink-500 font-medium">
                                         {appointment.professional.specialty}
                                     </p>
                                 )}
@@ -117,12 +117,13 @@ export function AppointmentCard({
             </div>
 
             {appointment.status === 'pending' && onAction && (
-                <div className="mt-4 flex gap-2">
+                <div className="mt-6 flex gap-3">
                     {userRole === 'professional' && (
                         <>
                             <Button
                                 size="sm"
                                 onClick={() => onAction(appointment.id, 'confirm')}
+                                className="bg-sage-400 hover:bg-sage-500 text-white"
                             >
                                 Confirm
                             </Button>
@@ -130,6 +131,7 @@ export function AppointmentCard({
                                 size="sm"
                                 variant="outline"
                                 onClick={() => onAction(appointment.id, 'reject')}
+                                className="border-error-soft text-error-text hover:bg-error-soft/20"
                             >
                                 Reject
                             </Button>
@@ -140,6 +142,7 @@ export function AppointmentCard({
                             size="sm"
                             variant="outline"
                             onClick={() => onAction(appointment.id, 'cancel')}
+                            className="border-error-soft text-error-text hover:bg-error-soft/20"
                         >
                             Cancel
                         </Button>

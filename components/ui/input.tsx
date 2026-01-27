@@ -9,26 +9,35 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ className, type, error, ...props }, ref) => {
         return (
-            <div className="w-full">
+            <div className="w-full group">
                 <input
                     type={type}
                     className={cn(
-                        'flex h-12 w-full rounded-lg border-2 bg-white px-4 py-3 text-sm',
-                        'transition-all duration-200 ease-in-out',
-                        'placeholder:text-gray-400 dark:placeholder:text-gray-500',
-                        'focus:outline-none focus:ring-4 focus:scale-[1.02]',
+                        // Base
+                        'flex h-12 w-full bg-transparent px-1 py-3 text-base font-sans text-ink-900',
+                        // Border - Underline style
+                        'border-b-2 border-cream-400',
+                        'rounded-t-md', // Slight rounding on top
+                        // Transition
+                        'transition-all duration-300 ease-out',
+                        'placeholder:text-cream-500 placeholder:font-serif placeholder:italic',
+                        // Focus
+                        'focus:outline-none focus:border-sage-400 focus:bg-cream-100/50',
+                        // Hover
+                        'hover:border-cream-600',
+                        // Disabled
                         'disabled:cursor-not-allowed disabled:opacity-50',
-                        'dark:bg-gray-800 dark:text-white',
+                        // Error
                         error
-                            ? 'border-error-500 focus:border-error-500 focus:ring-error-100 dark:focus:ring-error-900/30'
-                            : 'border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-900/30',
+                            ? 'border-error-soft text-error-text placeholder:text-error-soft/70 focus:border-error-text'
+                            : '',
                         className
                     )}
                     ref={ref}
                     {...props}
                 />
                 {error && (
-                    <p className="mt-1.5 text-sm text-error-600 dark:text-error-400" role="alert">
+                    <p className="mt-1.5 text-sm text-error-text font-medium" role="alert">
                         {error}
                     </p>
                 )}

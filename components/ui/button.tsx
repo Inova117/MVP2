@@ -24,27 +24,36 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <button
                 className={cn(
-                    'inline-flex items-center justify-center rounded-lg font-semibold',
-                    'transition-all duration-200 ease-in-out',
-                    'focus:outline-none focus:ring-4',
-                    'disabled:cursor-not-allowed disabled:opacity-50',
-                    'hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0',
+                    // Base styles
+                    'inline-flex items-center justify-center font-serif font-medium tracking-wide',
+                    'transition-all duration-300 ease-out',
+                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                    'disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:translate-y-0',
+                    // Tactile Interaction
+                    'hover:-translate-y-0.5 active:translate-y-0',
+                    'hover:shadow-tactile-md active:shadow-tactile-sm',
+                    // Shape
+                    'rounded-full',
                     // Variants
                     {
-                        'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-100 dark:focus:ring-primary-900/30':
+                        // Primary: Sage Green
+                        'bg-sage-400 text-white hover:bg-sage-500 focus:ring-sage-200':
                             variant === 'primary',
-                        'bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-100 dark:focus:ring-secondary-900/30':
+                        // Secondary: Cream / Soft
+                        'bg-cream-200 text-ink-900 hover:bg-cream-300 focus:ring-cream-100':
                             variant === 'secondary',
-                        'border-2 border-gray-300 dark:border-gray-600 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 focus:ring-gray-100 dark:focus:ring-gray-800':
+                        // Outline: Thin border, transparent
+                        'border-2 border-sage-200 bg-transparent text-sage-600 hover:bg-sage-50 hover:border-sage-300 focus:ring-sage-100':
                             variant === 'outline',
-                        'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-100 dark:focus:ring-gray-800':
+                        // Ghost: Minimal
+                        'bg-transparent text-ink-700 hover:bg-cream-100 hover:text-ink-900 focus:ring-cream-100':
                             variant === 'ghost',
                     },
                     // Sizes
                     {
-                        'h-9 px-4 py-2 text-sm': size === 'sm',
-                        'h-12 px-6 py-3 text-base': size === 'md',
-                        'h-14 px-8 py-4 text-lg': size === 'lg',
+                        'h-9 px-4 text-sm': size === 'sm',
+                        'h-12 px-8 text-base': size === 'md',
+                        'h-14 px-10 text-lg': size === 'lg',
                     },
                     className
                 )}
