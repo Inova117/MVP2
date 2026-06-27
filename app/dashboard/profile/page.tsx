@@ -71,13 +71,13 @@ export default function ProfilePage() {
                 })
 
             if (updateError) {
-                throw new Error('Failed to update profile')
+                throw new Error('No se pudo actualizar el perfil')
             }
 
             setSuccess(true)
             setTimeout(() => setSuccess(false), 3000)
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save changes')
+            setError(err instanceof Error ? err.message : 'No se pudieron guardar los cambios')
         }
     }
 
@@ -85,9 +85,9 @@ export default function ProfilePage() {
         return (
             <div className="flex items-center justify-center p-12">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-500 border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                        Loading profile...
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sage-500 border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-ink-600">
+                        Cargando…
                     </p>
                 </div>
             </div>
@@ -97,7 +97,7 @@ export default function ProfilePage() {
     if (!profile) {
         return (
             <div className="p-6">
-                <Alert variant="error">Profile not found</Alert>
+                <Alert variant="error">Perfil no encontrado</Alert>
             </div>
         )
     }
@@ -105,21 +105,21 @@ export default function ProfilePage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Profile Settings
+                <h1 className="text-3xl font-bold text-ink-900">
+                    Mi perfil
                 </h1>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Manage your personal information and professional details
+                <p className="mt-2 text-ink-600">
+                    Administra tu información personal y tus datos profesionales
                 </p>
             </div>
 
             {success && (
-                <Alert variant="success">Profile updated successfully!</Alert>
+                <Alert variant="success">Perfil actualizado correctamente</Alert>
             )}
 
             {error && <Alert variant="error">{error}</Alert>}
 
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+            <div className="rounded-lg border border-cream-200 bg-cream-50 p-6">
                 <ProfileForm
                     initialData={{
                         email: user?.email || '',

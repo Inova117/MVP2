@@ -24,7 +24,16 @@ export type SignInInput = z.infer<typeof signInSchema>
 export const updateProfileSchema = z.object({
     full_name: z.string().min(2).max(100).optional(),
     specialty: z
-        .enum(['Médico', 'Psicólogo', 'Abogado', 'Consultor', 'Otro'])
+        .enum([
+            'Médico',
+            'Psicólogo',
+            'Abogado',
+            'Consultor',
+            'Terapeuta',
+            'Nutricionista',
+            'Entrenador Personal',
+            'Otro',
+        ])
         .optional(),
     bio: z.string().max(500).optional(),
     avatar_url: z.string().url().optional(),

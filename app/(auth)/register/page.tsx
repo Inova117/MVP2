@@ -45,11 +45,11 @@ export default function RegisterPage() {
     return (
         <div className="w-full">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Create your account
+                <h1 className="text-3xl font-bold text-ink-900">
+                    Crea tu cuenta
                 </h1>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Get started with your booking platform
+                <p className="mt-2 text-ink-600">
+                    Empieza a gestionar tu agenda en minutos
                 </p>
             </div>
 
@@ -62,12 +62,12 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                     <Label htmlFor="fullName" required>
-                        Full Name
+                        Nombre completo
                     </Label>
                     <Input
                         id="fullName"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="Ana García"
                         autoFocus
                         autoComplete="name"
                         error={errors.fullName?.message}
@@ -77,12 +77,12 @@ export default function RegisterPage() {
 
                 <div>
                     <Label htmlFor="email" required>
-                        Email
+                        Correo electrónico
                     </Label>
                     <Input
                         id="email"
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder="tu@correo.com"
                         autoComplete="email"
                         error={errors.email?.message}
                         {...register('email')}
@@ -91,7 +91,7 @@ export default function RegisterPage() {
 
                 <div>
                     <Label htmlFor="password" required>
-                        Password
+                        Contraseña
                     </Label>
                     <Input
                         id="password"
@@ -107,31 +107,31 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                    <Label required>I want to</Label>
+                    <Label required>Quiero</Label>
                     <RoleSelector
                         value={role}
                         onChange={(newRole) => setValue('role', newRole)}
                     />
                     {errors.role && (
-                        <p className="mt-2 text-sm text-error-600 dark:text-error-400">
+                        <p className="mt-2 text-sm text-error-600">
                             {errors.role.message}
                         </p>
                     )}
                 </div>
 
                 <Button type="submit" className="w-full" size="lg" loading={loading}>
-                    Create Account
+                    Crear cuenta
                 </Button>
             </form>
 
             <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Already have an account?{' '}
+                <p className="text-sm text-ink-600">
+                    ¿Ya tienes cuenta?{' '}
                     <Link
                         href="/login"
-                        className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
+                        className="font-semibold text-sage-700 transition-colors hover:text-sage-600"
                     >
-                        Sign in
+                        Ingresar
                     </Link>
                 </p>
             </div>

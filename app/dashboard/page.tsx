@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase'
 import { StatCard } from '@/components/dashboard/stat-card'
 import { AppointmentCard } from '@/components/dashboard/appointment-card'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { type Appointment } from '@/lib/mock-db/types'
 
 interface DashboardUser {
@@ -15,41 +16,54 @@ interface DashboardUser {
 }
 
 function WelcomeSection({ user }: { user: DashboardUser }) {
-    const firstName = user.full_name?.split(' ')[0] || 'there'
+    const firstName = user.full_name?.split(' ')[0] || ''
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Welcome back, {firstName}! 👋
+            <h1 className="text-3xl font-bold text-ink-900">
+                Hola, {firstName} 👋
             </h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-ink-600">
                 {user.role === 'professional'
-                    ? "Here's what's happening with your appointments today."
-                    : "Here's an overview of your upcoming appointments."}
+                    ? 'Esto es lo que pasa con tu agenda hoy.'
+                    : 'Un resumen de tus próximas citas.'}
             </p>
         </div>
     )
 }
 
-function StatsGrid({ todayCount, pendingCount, totalCount }: { todayCount: number; pendingCount: number; totalCount: number }) {
+function StatsGrid({
+    todayCount,
+    pendingCount,
+    totalCount,
+    role,
+}: {
+    todayCount: number
+    pendingCount: number
+    totalCount: number
+    role: 'client' | 'professional'
+}) {
     return (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3">
             <StatCard
-                label="Today's Appointments"
+                label="Citas de hoy"
                 value={todayCount}
-                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>}
-                color="primary"
+                color="sage"
+                hint={todayCount === 0 ? 'Sin citas para hoy' : 'Programadas para hoy'}
+                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>}
             />
             <StatCard
-                label="Pending Approval"
+                label={role === 'professional' ? 'Por confirmar' : 'En espera'}
                 value={pendingCount}
-                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
                 color="warning"
+                hint={role === 'professional' ? 'Esperan tu confirmación' : 'Esperan confirmación'}
+                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
             />
             <StatCard
-                label="Total Appointments"
+                label="Total de citas"
                 value={totalCount}
-                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>}
-                color="success"
+                color="info"
+                hint="Histórico completo"
+                icon={<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>}
             />
         </div>
     )
@@ -57,35 +71,37 @@ function StatsGrid({ todayCount, pendingCount, totalCount }: { todayCount: numbe
 
 function QuickActions({ role }: { role: 'client' | 'professional' }) {
     return (
-        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
+        <div className="rounded-2xl border border-cream-200/80 bg-cream-100 p-6 shadow-tactile-sm">
+            <h2 className="mb-4 font-serif text-lg font-bold text-ink-900">
+                Acciones rápidas
+            </h2>
             <div className="flex flex-wrap gap-3">
                 {role === 'client' && (
                     <Link href="/dashboard/professionals">
-                        <Button>
-                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        <Button size="sm">
+                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                             </svg>
-                            Book New Appointment
+                            Reservar nueva cita
                         </Button>
                     </Link>
                 )}
                 {role === 'professional' && (
                     <Link href="/dashboard/availability">
-                        <Button>
-                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <Button size="sm">
+                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Manage Availability
+                            Configurar disponibilidad
                         </Button>
                     </Link>
                 )}
                 <Link href="/dashboard/profile">
-                    <Button variant="outline">
-                        <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    <Button variant="outline" size="sm">
+                        <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        Edit Profile
+                        Editar perfil
                     </Button>
                 </Link>
             </div>
@@ -93,31 +109,55 @@ function QuickActions({ role }: { role: 'client' | 'professional' }) {
     )
 }
 
-function AppointmentsList({ appointments, userRole }: { appointments: Appointment[]; userRole: 'client' | 'professional' }) {
+function AppointmentsList({
+    appointments,
+    userRole,
+}: {
+    appointments: Appointment[]
+    userRole: 'client' | 'professional'
+}) {
     return (
         <div>
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {userRole === 'professional' ? "Today's Schedule" : 'Upcoming Appointments'}
+            <div className="mb-4 flex items-center justify-between">
+                <h2 className="font-serif text-lg font-bold text-ink-900">
+                    {userRole === 'professional' ? 'Tu agenda' : 'Próximas citas'}
                 </h2>
-                <Link href="/dashboard/appointments" className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">
-                    View all →
+                <Link
+                    href="/dashboard/appointments"
+                    className="text-sm font-semibold text-sage-700 transition-colors hover:text-sage-600"
+                >
+                    Ver todas →
                 </Link>
             </div>
             {appointments.length === 0 ? (
-                <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center">
-                    <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">No appointments yet</h3>
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                        {userRole === 'client' ? 'Get started by booking your first appointment.' : 'Appointments will appear here once clients book with you.'}
+                <div className="rounded-2xl border border-dashed border-cream-300 bg-cream-100/60 p-10 text-center">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage-100 text-sage-600">
+                        <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.7}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 className="mt-4 text-lg font-medium text-ink-900">
+                        Aún no hay citas
+                    </h3>
+                    <p className="mx-auto mt-2 max-w-sm text-sm text-ink-500">
+                        {userRole === 'client'
+                            ? 'Reserva tu primera cita con un profesional para empezar.'
+                            : 'Las citas aparecerán aquí cuando tus clientes reserven contigo.'}
                     </p>
+                    {userRole === 'client' && (
+                        <Link href="/dashboard/professionals" className="mt-6 inline-block">
+                            <Button size="sm">Explorar profesionales</Button>
+                        </Link>
+                    )}
                 </div>
             ) : (
                 <div className="space-y-4">
                     {appointments.slice(0, 3).map((appointment) => (
-                        <AppointmentCard key={appointment.id} appointment={appointment} userRole={userRole} />
+                        <AppointmentCard
+                            key={appointment.id}
+                            appointment={appointment}
+                            userRole={userRole}
+                        />
                     ))}
                 </div>
             )}
@@ -137,7 +177,9 @@ export default function DashboardPage() {
             if (sessionData.session) {
                 setUser({
                     email: sessionData.session.email,
-                    full_name: sessionData.session.profile?.full_name || sessionData.session.email,
+                    full_name:
+                        sessionData.session.profile?.full_name ||
+                        sessionData.session.email,
                     role: sessionData.session.role,
                 })
 
@@ -156,18 +198,33 @@ export default function DashboardPage() {
         }
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []) // Only run once on mount
+    }, [])
 
-    if (loading) return <div className="flex items-center justify-center p-8">Loading...</div>
+    if (loading)
+        return (
+            <div className="flex items-center justify-center p-16">
+                <Spinner label="Cargando…" />
+            </div>
+        )
     if (!user) return null
 
-    const todayAppointments = appointments.filter((apt) => new Date(apt.start_time).toDateString() === new Date().toDateString())
-    const pendingCount = appointments.filter((apt) => apt.status === 'pending').length
+    const todayAppointments = appointments.filter(
+        (apt) =>
+            new Date(apt.start_time).toDateString() === new Date().toDateString()
+    )
+    const pendingCount = appointments.filter(
+        (apt) => apt.status === 'pending'
+    ).length
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
             <WelcomeSection user={user} />
-            <StatsGrid todayCount={todayAppointments.length} pendingCount={pendingCount} totalCount={appointments.length} />
+            <StatsGrid
+                todayCount={todayAppointments.length}
+                pendingCount={pendingCount}
+                totalCount={appointments.length}
+                role={user.role}
+            />
             <QuickActions role={user.role} />
             <AppointmentsList appointments={appointments} userRole={user.role} />
         </div>

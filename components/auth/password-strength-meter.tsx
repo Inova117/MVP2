@@ -27,30 +27,36 @@ export function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) 
         if (checks.special) score++
 
         if (score <= 2) {
-            return { score, label: 'Weak', color: 'bg-error-500' }
+            return { score, label: 'Débil', color: 'bg-error-500' }
         } else if (score <= 4) {
-            return { score, label: 'Medium', color: 'bg-warning-500' }
+            return { score, label: 'Media', color: 'bg-warning-500' }
         } else {
-            return { score, label: 'Strong', color: 'bg-success-500' }
+            return { score, label: 'Fuerte', color: 'bg-success-500' }
         }
     }, [password])
 
     if (!password) return null
 
+    const criteria = [
+        { ok: password.length >= 8, label: 'Al menos 8 caracteres' },
+        { ok: /[A-Z]/.test(password), label: 'Una letra mayúscula' },
+        { ok: /[a-z]/.test(password), label: 'Una letra minúscula' },
+        { ok: /[0-9]/.test(password), label: 'Un número' },
+        { ok: /[^A-Za-z0-9]/.test(password), label: 'Un símbolo (opcional)' },
+    ]
+
     return (
         <div className="mt-2">
             <div className="mb-1 flex items-center justify-between">
-                <span className="text-xs text-gray-600 dark:text-gray-400">
-                    Password strength:
+                <span className="text-xs text-ink-500">
+                    Seguridad de la contraseña:
                 </span>
                 <span
                     className={cn(
                         'text-xs font-semibold',
-                        strength.score <= 2 && 'text-error-600 dark:text-error-400',
-                        strength.score > 2 &&
-                        strength.score <= 4 &&
-                        'text-warning-600 dark:text-warning-400',
-                        strength.score > 4 && 'text-success-600 dark:text-success-400'
+                        strength.score <= 2 && 'text-error-600',
+                        strength.score > 2 && strength.score <= 4 && 'text-warning-600',
+                        strength.score > 4 && 'text-success-600'
                     )}
                 >
                     {strength.label}
@@ -62,23 +68,20 @@ export function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) 
                         key={bar}
                         className={cn(
                             'h-1.5 flex-1 rounded-full transition-all duration-300',
-                            bar <= strength.score
-                                ? strength.color
-                                : 'bg-gray-200 dark:bg-gray-700'
+                            bar <= strength.score ? strength.color : 'bg-cream-300'
                         )}
                     />
                 ))}
             </div>
-            <div className="mt-2 space-y-1 text-xs text-gray-600 dark:text-gray-400">
-                <div className={cn(password.length >= 8 && 'text-success-600 dark:text-success-400')}>
-                    {password.length >= 8 ? '✓' : '○'} At least 8 characters
-                </div>
-                <div className={cn(/[A-Z]/.test(password) && 'text-success-600 dark:text-success-400')}>
-                    {/[A-Z]/.test(password) ? '✓' : '○'} One uppercase letter
-                </div>
-                <div className={cn(/[0-9]/.test(password) && 'text-success-600 dark:text-success-400')}>
-                    {/[0-9]/.test(password) ? '✓' : '○'} One number
-                </div>
+            <div className="mt-2 space-y-1 text-xs text-ink-500">
+                {criteria.map((c) => (
+                    <div
+                        key={c.label}
+                        className={cn(c.ok && 'text-success-600')}
+                    >
+                        {c.ok ? '✓' : '○'} {c.label}
+                    </div>
+                ))}
             </div>
         </div>
     )

@@ -52,15 +52,13 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
                     <h3
                         className={cn(
                             'font-semibold',
-                            value === 'client'
-                                ? 'text-primary-900 dark:text-primary-100'
-                                : 'text-gray-900 dark:text-gray-100'
+                            value === 'client' ? 'text-sage-800' : 'text-ink-900'
                         )}
                     >
-                        Client
+                        Cliente
                     </h3>
-                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        Book appointments with professionals
+                    <p className="mt-1 text-sm text-ink-500">
+                        Reservar citas con profesionales
                     </p>
                 </div>
                 {value === 'client' && (
@@ -126,15 +124,13 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
                     <h3
                         className={cn(
                             'font-semibold',
-                            value === 'professional'
-                                ? 'text-secondary-900 dark:text-secondary-100'
-                                : 'text-gray-900 dark:text-gray-100'
+                            value === 'professional' ? 'text-clay-800' : 'text-ink-900'
                         )}
                     >
-                        Professional
+                        Profesional
                     </h3>
-                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        Offer services and manage appointments
+                    <p className="mt-1 text-sm text-ink-500">
+                        Ofrecer servicios y gestionar citas
                     </p>
                 </div>
                 {value === 'professional' && (

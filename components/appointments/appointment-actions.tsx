@@ -19,11 +19,11 @@ export function AppointmentActions({
         return (
             <div className="flex gap-2">
                 {onConfirm && (
-                    <Button size="sm" onClick={onConfirm} loading={loading}>
+                    <Button size="sm" onClick={onConfirm} loading={loading} disabled={loading}>
                         <svg className="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        Confirm
+                        Confirmar
                     </Button>
                 )}
                 {onReject && (
@@ -31,13 +31,13 @@ export function AppointmentActions({
                         size="sm"
                         variant="outline"
                         onClick={onReject}
-                        className="text-error-600 hover:text-error-700 hover:bg-error-50 dark:text-error-400 dark:hover:bg-error-900/20"
+                        className="border-error-200 text-error-600 hover:text-error-700 hover:bg-error-50"
                         disabled={loading}
                     >
                         <svg className="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        Reject
+                        Rechazar
                     </Button>
                 )}
             </div>
@@ -50,7 +50,7 @@ export function AppointmentActions({
                 <svg className="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Mark as Completed
+                Marcar como completada
             </Button>
         )
     }

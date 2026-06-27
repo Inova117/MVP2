@@ -13,27 +13,27 @@ export function BackendFloatButton() {
     return (
         <Link
             href="/backend"
-            className="fixed bottom-6 right-6 z-50 group"
-            title="View Backend & Security Documentation"
+            className="group fixed bottom-6 right-6 z-50"
+            title="Ver arquitectura y seguridad"
         >
             <div className="relative" suppressHydrationWarning>
-                {/* Main Button */}
-                <div className="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group-hover:scale-105">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                {/* Botón principal */}
+                <div className="flex items-center gap-2 rounded-full bg-sage-600 px-5 py-3 text-cream-50 shadow-tactile-floating transition-all duration-300 group-hover:scale-105 group-hover:bg-sage-700">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
-                    <span className="font-semibold hidden sm:inline">Backend Docs</span>
+                    <span className="hidden font-semibold sm:inline">Arquitectura</span>
                     <span className="font-semibold sm:hidden">Code</span>
                 </div>
 
-                {/* Pulse Animation */}
-                <div className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-20" />
+                {/* Pulso */}
+                <div className="absolute inset-0 -z-10 animate-ping rounded-full bg-sage-500 opacity-20" />
             </div>
 
-            {/* Tooltip on hover */}
-            <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-slate-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                View Backend & Security
-                <div className="absolute top-full right-4 -mt-1 border-4 border-transparent border-t-slate-900" />
+            {/* Tooltip */}
+            <div className="pointer-events-none absolute bottom-full right-0 mb-2 whitespace-nowrap rounded-lg bg-ink-900 px-3 py-2 text-sm text-cream-50 opacity-0 transition-opacity group-hover:opacity-100">
+                Ver arquitectura y seguridad
+                <div className="absolute right-4 top-full -mt-1 border-4 border-transparent border-t-ink-900" />
             </div>
         </Link>
     )

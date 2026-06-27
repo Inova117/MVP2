@@ -1,5 +1,12 @@
-import { cn, formatDate, formatTime } from '@/lib/utils'
+import { cn, formatDate, formatTime, getInitials } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+
+const statusLabels = {
+    pending: 'Pendiente',
+    confirmed: 'Confirmada',
+    cancelled: 'Cancelada',
+    completed: 'Completada',
+} as const
 
 interface AppointmentCardProps {
     appointment: {
@@ -50,11 +57,11 @@ export function AppointmentCard({
                         </h3>
                         <span
                             className={cn(
-                                'rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase',
+                                'rounded-full px-3 py-1 text-xs font-semibold tracking-wide',
                                 statusColors[appointment.status]
                             )}
                         >
-                            {appointment.status}
+                            {statusLabels[appointment.status]}
                         </span>
                     </div>
                     {appointment.description && (
@@ -99,7 +106,7 @@ export function AppointmentCard({
                     {otherParty && (
                         <div className="mt-4 flex items-center gap-3 border-t border-cream-200 pt-4">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sage-200 text-sage-800 text-sm font-bold shadow-tactile-sm">
-                                {otherParty.full_name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)}
+                                {getInitials(otherParty.full_name)}
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-ink-900">
@@ -123,17 +130,16 @@ export function AppointmentCard({
                             <Button
                                 size="sm"
                                 onClick={() => onAction(appointment.id, 'confirm')}
-                                className="bg-sage-400 hover:bg-sage-500 text-white"
                             >
-                                Confirm
+                                Confirmar
                             </Button>
                             <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => onAction(appointment.id, 'reject')}
-                                className="border-error-soft text-error-text hover:bg-error-soft/20"
+                                className="border-error-200 text-error-700 hover:bg-error-50 hover:border-error-300"
                             >
-                                Reject
+                                Rechazar
                             </Button>
                         </>
                     )}
@@ -142,9 +148,9 @@ export function AppointmentCard({
                             size="sm"
                             variant="outline"
                             onClick={() => onAction(appointment.id, 'cancel')}
-                            className="border-error-soft text-error-text hover:bg-error-soft/20"
+                            className="border-error-200 text-error-700 hover:bg-error-50 hover:border-error-300"
                         >
-                            Cancel
+                            Cancelar
                         </Button>
                     )}
                 </div>

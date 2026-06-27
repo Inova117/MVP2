@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { z } from 'zod'
 import { auth } from '@/lib/mock-db/auth'
 import { db } from '@/lib/mock-db/database'
-import '@/lib/mock-db/seed'
+import { seedReady } from '@/lib/mock-db/seed'
 
 const createAvailabilitySchema = z.object({
     day_of_week: z.number().min(0).max(6),
@@ -20,6 +20,7 @@ const createAvailabilitySchema = z.object({
 // GET /api/availability - Get availability settings
 export async function GET(request: Request) {
     try {
+        await seedReady
         const { searchParams } = new URL(request.url)
         const professionalId = searchParams.get('professionalId') || searchParams.get('professional_id')
 
@@ -45,6 +46,7 @@ export async function GET(request: Request) {
 // POST /api/availability - Create availability setting
 export async function POST(request: Request) {
     try {
+        await seedReady
         const cookieStore = await cookies()
         const token = cookieStore.get('auth-token')?.value
 
@@ -93,6 +95,7 @@ export async function POST(request: Request) {
 // DELETE /api/availability/:id - Delete availability setting
 export async function DELETE(request: Request) {
     try {
+        await seedReady
         const { searchParams } = new URL(request.url)
         const id = searchParams.get('id')
 

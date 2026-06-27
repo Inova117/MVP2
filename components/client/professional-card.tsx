@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { getInitials, formatCurrency } from '@/lib/utils'
 import type { Profile } from '@/lib/mock-db/types'
 
 interface ProfessionalCardProps {
@@ -7,46 +9,43 @@ interface ProfessionalCardProps {
 }
 
 export function ProfessionalCard({ professional }: ProfessionalCardProps) {
-    const initials = professional.full_name
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2)
+    const initials = getInitials(professional.full_name)
 
     return (
-        <div className="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all hover:shadow-md">
+        <div className="flex flex-col rounded-2xl border border-cream-200 bg-cream-100 p-6 shadow-tactile-sm transition-all hover:-translate-y-1 hover:shadow-tactile-lg">
             <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 text-lg font-bold text-white">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sage-600 text-lg font-bold text-cream-50">
                         {initials}
                     </div>
                     <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-lg font-semibold text-ink-900">
                             {professional.full_name}
                         </h3>
-                        <span className="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-2 py-1 text-xs font-medium text-primary-700 dark:text-primary-300">
-                            {professional.specialty || 'General Professional'}
-                        </span>
+                        <Badge variant="sage" className="mt-1">
+                            {professional.specialty || 'Profesional'}
+                        </Badge>
                     </div>
                 </div>
             </div>
 
             <div className="mt-4 flex-1">
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-                    {professional.bio || 'No bio available for this professional.'}
+                <p className="text-sm text-ink-600 line-clamp-3">
+                    {professional.bio || 'Este profesional aún no agregó una descripción.'}
                 </p>
             </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
-                <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Hourly Rate</p>
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">
-                        ${professional.hourly_rate?.toFixed(2) || '0.00'}
+            <div className="mt-6 border-t border-cream-200 pt-4">
+                <div className="mb-4">
+                    <p className="text-xs text-ink-500">Tarifa por hora</p>
+                    <p className="text-lg font-bold text-ink-900">
+                        {formatCurrency(professional.hourly_rate ?? 0)}
                     </p>
                 </div>
-                <Link href={`/dashboard/book/${professional.id}`}>
-                    <Button variant="primary">Book Now</Button>
+                <Link href={`/dashboard/book/${professional.id}`} className="block">
+                    <Button variant="primary" className="w-full">
+                        Reservar
+                    </Button>
                 </Link>
             </div>
         </div>

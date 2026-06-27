@@ -1,5 +1,7 @@
 import { format } from 'date-fns'
+import { es } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
+import { formatCurrency, getInitials } from '@/lib/utils'
 import type { Profile } from '@/lib/mock-db/types'
 
 interface BookingSummaryProps {
@@ -17,71 +19,76 @@ export function BookingSummary({
     onBack,
     loading = false,
 }: BookingSummaryProps) {
-    const duration = (slot.end.getTime() - slot.start.getTime()) / (1000 * 60)
+    const duration = Math.round(
+        (slot.end.getTime() - slot.start.getTime()) / (1000 * 60)
+    )
     const price = (professional.hourly_rate || 0) * (duration / 60)
+
+    const rows = [
+        {
+            label: 'Fecha',
+            value: format(slot.start, "EEEE d 'de' MMMM, yyyy", { locale: es }),
+        },
+        {
+            label: 'Hora',
+            value: `${format(slot.start, 'HH:mm')} – ${format(slot.end, 'HH:mm')}`,
+        },
+        { label: 'Duración', value: `${duration} minutos` },
+    ]
 
     return (
         <div className="space-y-6">
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Booking Summary
-                </h3>
-
-                <div className="mt-4 space-y-4">
-                    <div className="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
-                        <span className="text-gray-600 dark:text-gray-400">Professional</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
+            <div className="overflow-hidden rounded-2xl border border-cream-200 bg-cream-100 shadow-tactile-sm">
+                {/* Encabezado del profesional */}
+                <div className="flex items-center gap-4 border-b border-cream-200 bg-sage-50 p-6">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-sage-600 text-lg font-bold text-cream-50">
+                        {getInitials(professional.full_name)}
+                    </div>
+                    <div>
+                        <p className="font-serif text-lg font-bold text-ink-900">
                             {professional.full_name}
-                        </span>
+                        </p>
+                        {professional.specialty && (
+                            <p className="text-sm text-ink-500">
+                                {professional.specialty}
+                            </p>
+                        )}
                     </div>
+                </div>
 
-                    <div className="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
-                        <span className="text-gray-600 dark:text-gray-400">Date</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                            {format(slot.start, 'EEEE, MMMM d, yyyy')}
-                        </span>
-                    </div>
+                <div className="space-y-4 p-6">
+                    {rows.map((row) => (
+                        <div
+                            key={row.label}
+                            className="flex items-center justify-between border-b border-cream-200 pb-4 last:border-0 last:pb-0"
+                        >
+                            <span className="text-ink-500">{row.label}</span>
+                            <span className="text-right font-medium capitalize text-ink-900">
+                                {row.value}
+                            </span>
+                        </div>
+                    ))}
 
-                    <div className="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
-                        <span className="text-gray-600 dark:text-gray-400">Time</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                            {format(slot.start, 'HH:mm')} - {format(slot.end, 'HH:mm')}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
-                        <span className="text-gray-600 dark:text-gray-400">Duration</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                            {duration} minutes
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between pt-2">
-                        <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                            Total Price
-                        </span>
-                        <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                            ${price.toFixed(2)}
+                    <div className="flex items-center justify-between rounded-xl bg-sage-50 px-4 py-3">
+                        <span className="font-semibold text-ink-900">Precio total</span>
+                        <span className="font-serif text-2xl font-bold text-sage-700">
+                            {formatCurrency(price)}
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-3">
                 <Button
                     variant="outline"
                     className="flex-1"
                     onClick={onBack}
                     disabled={loading}
                 >
-                    Back
+                    Volver
                 </Button>
-                <Button
-                    className="flex-1"
-                    onClick={onConfirm}
-                    loading={loading}
-                >
-                    Confirm Booking
+                <Button className="flex-1" onClick={onConfirm} loading={loading}>
+                    Confirmar reserva
                 </Button>
             </div>
         </div>

@@ -22,9 +22,10 @@ export function ClientAppointmentActions({
                 size="sm"
                 onClick={onCancel}
                 loading={loading}
-                className="text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50 dark:border-red-900/30 dark:hover:bg-red-900/20"
+                disabled={loading}
+                className="border-error-200 text-error-600 hover:text-error-700 hover:bg-error-50"
             >
-                Cancel Appointment
+                Cancelar cita
             </Button>
         </div>
     )

@@ -26,24 +26,24 @@ export function CodeBlock({
     }
 
     return (
-        <div className="relative rounded-lg border border-gray-700 bg-gray-900 overflow-hidden">
+        <div className="relative rounded-lg border border-ink-800 bg-ink-900 overflow-hidden">
             {title && (
-                <div className="flex items-center justify-between border-b border-gray-700 bg-gray-800 px-4 py-2">
-                    <span className="text-sm font-medium text-gray-300">{title}</span>
+                <div className="flex items-center justify-between border-b border-ink-800 bg-ink-800 px-4 py-2">
+                    <span className="text-sm font-medium text-cream-200">{title}</span>
                     <button
                         onClick={handleCopy}
-                        className="rounded px-2 py-1 text-xs font-medium text-gray-400 hover:bg-gray-700 hover:text-white transition-colors"
+                        className="rounded px-2 py-1 text-xs font-medium text-cream-300 hover:bg-ink-700 hover:text-cream-50 transition-colors"
                     >
-                        {copied ? '✓ Copied' : 'Copy'}
+                        {copied ? '✓ Copiado' : 'Copiar'}
                     </button>
                 </div>
             )}
             {!title && (
                 <button
                     onClick={handleCopy}
-                    className="absolute right-2 top-2 z-10 rounded bg-gray-800 px-2 py-1 text-xs font-medium text-gray-400 hover:bg-gray-700 hover:text-white transition-colors"
+                    className="absolute right-2 top-2 z-10 rounded bg-ink-800 px-2 py-1 text-xs font-medium text-cream-300 hover:bg-ink-700 hover:text-cream-50 transition-colors"
                 >
-                    {copied ? '✓ Copied' : 'Copy'}
+                    {copied ? '✓ Copiado' : 'Copiar'}
                 </button>
             )}
             <SyntaxHighlighter

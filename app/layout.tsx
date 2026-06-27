@@ -12,8 +12,20 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
-    title: 'Analytics Dashboard - Demo',
-    description: 'Enterprise analytics platform with real-time insights',
+    title: {
+        default: 'Agenda · Plataforma de Agendamiento',
+        template: '%s · Agenda',
+    },
+    description:
+        'Automatiza tu agenda y recupera horas cada semana. Reservas online 24/7, confirmaciones automáticas y recordatorios para clínicas, salones y consultorios.',
+    keywords: [
+        'agendamiento',
+        'reservas online',
+        'citas',
+        'clínicas',
+        'salones',
+        'consultorios',
+    ],
 }
 
 export default function RootLayout({
@@ -22,7 +34,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="es" suppressHydrationWarning>
             <body
                 className={`${inter.variable} ${merriweather.variable} antialiased`}
                 suppressHydrationWarning

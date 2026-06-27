@@ -36,24 +36,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     'rounded-full',
                     // Variants
                     {
-                        // Primary: Sage Green
-                        'bg-sage-400 text-white hover:bg-sage-500 focus:ring-sage-200':
+                        // Primary: Salvia sólida (contraste AA con texto blanco)
+                        'bg-sage-600 text-white shadow-tactile-sm hover:bg-sage-700 focus:ring-sage-300':
                             variant === 'primary',
-                        // Secondary: Cream / Soft
-                        'bg-cream-200 text-ink-900 hover:bg-cream-300 focus:ring-cream-100':
+                        // Secondary: Arcilla cálida
+                        'bg-clay-500 text-white shadow-tactile-sm hover:bg-clay-600 focus:ring-clay-300':
                             variant === 'secondary',
-                        // Outline: Thin border, transparent
-                        'border-2 border-sage-200 bg-transparent text-sage-600 hover:bg-sage-50 hover:border-sage-300 focus:ring-sage-100':
+                        // Outline: Borde sutil, transparente
+                        'border-2 border-sage-300 bg-transparent text-sage-700 hover:bg-sage-50 hover:border-sage-400 focus:ring-sage-200':
                             variant === 'outline',
-                        // Ghost: Minimal
-                        'bg-transparent text-ink-700 hover:bg-cream-100 hover:text-ink-900 focus:ring-cream-100':
+                        // Ghost: Mínimo
+                        'bg-transparent text-ink-700 hover:bg-cream-200 hover:text-ink-900 focus:ring-cream-200':
                             variant === 'ghost',
                     },
                     // Sizes
                     {
                         'h-9 px-4 text-sm': size === 'sm',
-                        'h-12 px-8 text-base': size === 'md',
-                        'h-14 px-10 text-lg': size === 'lg',
+                        'h-11 px-6 text-[0.95rem]': size === 'md',
+                        'h-14 px-9 text-lg': size === 'lg',
                     },
                     className
                 )}

@@ -12,13 +12,13 @@ interface AppointmentTabsProps {
 
 export function AppointmentTabs({ activeTab, onTabChange, counts }: AppointmentTabsProps) {
     const tabs = [
-        { id: 'pending' as const, label: 'Pending', count: counts.pending },
-        { id: 'upcoming' as const, label: 'Upcoming', count: counts.upcoming },
-        { id: 'past' as const, label: 'Past', count: counts.past },
+        { id: 'pending' as const, label: 'Pendientes', count: counts.pending },
+        { id: 'upcoming' as const, label: 'Próximas', count: counts.upcoming },
+        { id: 'past' as const, label: 'Pasadas', count: counts.past },
     ]
 
     return (
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-cream-200">
             <nav className="-mb-px flex space-x-8">
                 {tabs.map((tab) => (
                     <button
@@ -26,9 +26,10 @@ export function AppointmentTabs({ activeTab, onTabChange, counts }: AppointmentT
                         onClick={() => onTabChange(tab.id)}
                         className={cn(
                             'flex items-center gap-2 border-b-2 px-1 py-4 text-sm font-medium transition-colors',
+                            'focus:outline-none focus-visible:ring-2 focus-visible:ring-sage-300 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-50 rounded-sm',
                             activeTab === tab.id
-                                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                                ? 'border-sage-600 text-sage-700'
+                                : 'border-transparent text-ink-500 hover:border-cream-300 hover:text-ink-700'
                         )}
                     >
                         {tab.label}
@@ -37,8 +38,8 @@ export function AppointmentTabs({ activeTab, onTabChange, counts }: AppointmentT
                                 className={cn(
                                     'rounded-full px-2 py-0.5 text-xs font-semibold',
                                     activeTab === tab.id
-                                        ? 'bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
-                                        : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                                        ? 'bg-sage-100 text-sage-700'
+                                        : 'bg-cream-200 text-ink-600'
                                 )}
                             >
                                 {tab.count}

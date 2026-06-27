@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { auth } from '@/lib/mock-db/auth'
-import '@/lib/mock-db/seed' // Initialize seed data
+import { seedReady } from '@/lib/mock-db/seed' // Initialize seed data
 
 const signUpSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -16,6 +16,7 @@ const signUpSchema = z.object({
 
 export async function POST(request: Request) {
     try {
+        await seedReady
         const body = await request.json()
         const validation = signUpSchema.safeParse(body)
 

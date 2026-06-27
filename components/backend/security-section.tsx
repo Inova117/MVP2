@@ -11,7 +11,7 @@ export function SecuritySection() {
 
 canSelectAppointment(session: Session | null, appointment: Appointment): boolean {
   if (!session) return false
-  
+
   return (
     session.user_id === appointment.client_id ||
     session.user_id === appointment.professional_id
@@ -21,138 +21,138 @@ canSelectAppointment(session: Session | null, appointment: Appointment): boolean
 // Clients can only create appointments for themselves
 canInsertAppointment(session: Session | null, appointment: Appointment): boolean {
   if (!session) return false
-  
+
   const profile = db.getProfile(session.user_id)
   if (!profile || profile.role !== 'client') return false
-  
+
   return session.user_id === appointment.client_id
 }`
 
     return (
         <section className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    🔒 Security & Data Protection
+                <h2 className="text-3xl font-bold text-ink-900">
+                    🔒 Seguridad y protección de datos
                 </h2>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Enterprise-grade security features protecting user data and preventing unauthorized access
+                <p className="mt-2 text-ink-600">
+                    Características de seguridad de nivel empresarial que protegen los datos de los usuarios y evitan accesos no autorizados
                 </p>
             </div>
 
             {/* Security Features Table */}
-            <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-900">
+            <div className="overflow-hidden rounded-lg border border-cream-200 bg-cream-100">
+                <table className="min-w-full divide-y divide-cream-200">
+                    <thead className="bg-cream-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                Feature
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-ink-500">
+                                Característica
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                Status
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-ink-500">
+                                Estado
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                Implementation
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-ink-500">
+                                Implementación
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                Protection Level
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-ink-500">
+                                Nivel de protección
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                    <tbody className="divide-y divide-cream-200 bg-cream-100">
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
                                 Row Level Security (RLS)
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Custom policy engine
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Motor de políticas personalizado
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                User data isolation
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Aislamiento de datos del usuario
                             </td>
                         </tr>
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                Password Hashing
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
+                                Hashing de contraseñas
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                            <td className="px-6 py-4 text-sm text-ink-500">
                                 bcrypt (10 rounds)
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Credential protection
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Protección de credenciales
                             </td>
                         </tr>
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                JWT Authentication
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
+                                Autenticación JWT
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                HTTP-only cookies
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Cookies HTTP-only
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Session security
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Seguridad de la sesión
                             </td>
                         </tr>
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                API Input Validation
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
+                                Validación de entradas de la API
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Zod schemas
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Esquemas Zod
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Injection prevention
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Prevención de inyecciones
                             </td>
                         </tr>
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                Route Protection
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
+                                Protección de rutas
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Middleware guards
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Guardas de middleware
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Access control
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Control de acceso
                             </td>
                         </tr>
                         <tr>
-                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                Appointment Overlap Check
+                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-ink-900">
+                                Verificación de solapamiento de citas
                             </td>
                             <td className="whitespace-nowrap px-6 py-4 text-sm">
-                                <span className="inline-flex rounded-full bg-green-100 dark:bg-green-900/30 px-2 text-xs font-semibold leading-5 text-green-800 dark:text-green-400">
-                                    ✅ Active
+                                <span className="inline-flex rounded-full bg-success-100 px-2 text-xs font-semibold leading-5 text-success-800">
+                                    ✅ Activo
                                 </span>
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Database constraint
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Restricción de base de datos
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                Data integrity
+                            <td className="px-6 py-4 text-sm text-ink-500">
+                                Integridad de los datos
                             </td>
                         </tr>
                     </tbody>
@@ -163,9 +163,9 @@ canInsertAppointment(session: Session | null, appointment: Appointment): boolean
             <div>
                 <button
                     onClick={() => setShowRLSExample(!showRLSExample)}
-                    className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-cream-50 hover:bg-sage-700 transition-colors"
                 >
-                    {showRLSExample ? '▼' : '▶'} View RLS Policy Example
+                    {showRLSExample ? '▼' : '▶'} Ver ejemplo de política RLS
                 </button>
 
                 {showRLSExample && (

@@ -3,20 +3,20 @@
 
 export function ArchitectureOverview() {
     return (
-        <div className="bg-white rounded-xl border border-slate-200 p-8">
+        <div className="bg-cream-100 rounded-xl border border-cream-200 p-8">
             <div className="flex items-center gap-3 mb-6">
-                <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="h-10 w-10 bg-sage-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-sage-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Architecture Overview</h2>
-                    <p className="text-slate-600">Calendar-first booking system with real-time availability</p>
+                    <h2 className="text-2xl font-bold text-ink-900">Resumen de la arquitectura</h2>
+                    <p className="text-ink-600">Sistema de reservas calendar-first con disponibilidad en tiempo real</p>
                 </div>
             </div>
 
-            <div className="bg-slate-50 rounded-lg p-6 mb-6">
+            <div className="bg-cream-50 rounded-lg p-6 mb-6">
                 <div className="mermaid">
                     {`graph TB
     A[Client Portal] -->|HTTPS| B[Next.js Frontend]
@@ -27,61 +27,61 @@ export function ArchitectureOverview() {
     E -->|RLS Policies| G[Row Level Security]
     E -->|Real-time| H[Calendar Updates]
     F -->|JWT Token| B
-    
-    style A fill:#e3f2fd
-    style B fill:#bbdefb
-    style C fill:#90caf9
-    style D fill:#fff9c4
-    style E fill:#c8e6c9
-    style F fill:#ffccbc
-    style G fill:#f8bbd0
-    style H fill:#e1bee7`}
+
+    style A fill:#f4f2eb,stroke:#4a6543,color:#26261f
+    style B fill:#e5ece2,stroke:#4a6543,color:#26261f
+    style C fill:#cbd9c6,stroke:#4a6543,color:#26261f
+    style D fill:#f3e4d9,stroke:#97502f,color:#26261f
+    style E fill:#e5ece2,stroke:#4a6543,color:#26261f
+    style F fill:#f3e4d9,stroke:#97502f,color:#26261f
+    style G fill:#f4f2eb,stroke:#26261f,color:#26261f
+    style H fill:#f4f2eb,stroke:#26261f,color:#26261f`}
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                <div className="p-4 bg-sage-50 rounded-lg border border-sage-200">
                     <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <h3 className="font-semibold text-slate-900">Real-time Calendar</h3>
+                        <h3 className="font-semibold text-ink-900">Calendario en tiempo real</h3>
                     </div>
-                    <p className="text-sm text-slate-600">
-                        Availability syncs instantly across all users.
+                    <p className="text-sm text-ink-600">
+                        La disponibilidad se sincroniza al instante para todos los usuarios.
                     </p>
                 </div>
 
-                <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+                <div className="p-4 bg-sage-50 rounded-lg border border-sage-200">
                     <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <h3 className="font-semibold text-slate-900">Conflict Prevention</h3>
+                        <h3 className="font-semibold text-ink-900">Prevención de conflictos</h3>
                     </div>
-                    <p className="text-sm text-slate-600">
-                        Automatic double-booking prevention built-in.
+                    <p className="text-sm text-ink-600">
+                        Prevención automática de dobles reservas integrada.
                     </p>
                 </div>
 
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
+                <div className="p-4 bg-sage-50 rounded-lg border border-sage-200">
                     <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <h3 className="font-semibold text-slate-900">Email Notifications</h3>
+                        <h3 className="font-semibold text-ink-900">Notificaciones por correo</h3>
                     </div>
-                    <p className="text-sm text-slate-600">
-                        Automated reminders and confirmations via email.
+                    <p className="text-sm text-ink-600">
+                        Recordatorios y confirmaciones automáticos por correo electrónico.
                     </p>
                 </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-slate-200">
-                <p className="text-sm text-slate-600 mb-3 font-medium">Technologies Used:</p>
+            <div className="mt-6 pt-6 border-t border-cream-200">
+                <p className="text-sm text-ink-600 mb-3 font-medium">Tecnologías utilizadas:</p>
                 <div className="flex flex-wrap gap-2">
                     {['Next.js 14', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'date-fns', 'React Hook Form', 'Vercel'].map((tech) => (
-                        <span key={tech} className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full font-medium">
+                        <span key={tech} className="px-3 py-1 bg-cream-200 text-ink-700 text-sm rounded-full font-medium">
                             {tech}
                         </span>
                     ))}

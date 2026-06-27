@@ -50,7 +50,7 @@ export class MockAuth {
             role,
         }
 
-        const token = await new SignJWT(session as any)
+        const token = await new SignJWT({ ...session })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('7d')
             .sign(secretKey)
@@ -89,7 +89,7 @@ export class MockAuth {
             role: profile.role,
         }
 
-        const token = await new SignJWT(session as any)
+        const token = await new SignJWT({ ...session })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('7d')
             .sign(secretKey)

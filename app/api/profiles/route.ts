@@ -4,12 +4,21 @@ import { z } from 'zod'
 import { auth } from '@/lib/mock-db/auth'
 import { db } from '@/lib/mock-db/database'
 import { rls } from '@/lib/mock-db/rls'
-import '@/lib/mock-db/seed'
+import { seedReady } from '@/lib/mock-db/seed'
 
 const updateProfileSchema = z.object({
     full_name: z.string().min(2).max(100).optional(),
     specialty: z
-        .enum(['Médico', 'Psicólogo', 'Abogado', 'Consultor', 'Otro'])
+        .enum([
+            'Médico',
+            'Psicólogo',
+            'Abogado',
+            'Consultor',
+            'Terapeuta',
+            'Nutricionista',
+            'Entrenador Personal',
+            'Otro',
+        ])
         .optional(),
     bio: z.string().max(500).optional(),
     avatar_url: z.string().url().optional(),
@@ -19,6 +28,7 @@ const updateProfileSchema = z.object({
 // GET /api/profiles - Get all profiles or specific profile
 export async function GET(request: Request) {
     try {
+        await seedReady
         const { searchParams } = new URL(request.url)
         const id = searchParams.get('id')
         const role = searchParams.get('role')
@@ -64,6 +74,7 @@ export async function GET(request: Request) {
 // PATCH /api/profiles - Update profile
 export async function PATCH(request: Request) {
     try {
+        await seedReady
         const cookieStore = await cookies()
         const token = cookieStore.get('auth-token')?.value
 

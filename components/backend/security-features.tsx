@@ -11,8 +11,8 @@ export function SecurityFeatures() {
             id: 'rls',
             name: 'Row Level Security (RLS)',
             status: 'active',
-            description: 'Users can only access their own data',
-            details: 'PostgreSQL RLS policies enforce data isolation at the database level. Each query automatically filters results based on the authenticated user.',
+            description: 'Los usuarios solo pueden acceder a sus propios datos',
+            details: 'Las políticas RLS de PostgreSQL imponen el aislamiento de datos a nivel de base de datos. Cada consulta filtra automáticamente los resultados según el usuario autenticado.',
             example: `-- Users can only see their own dashboards
 CREATE POLICY "Users see own dashboards"
 ON dashboards FOR SELECT
@@ -22,8 +22,8 @@ USING (auth.uid() = user_id);`
             id: 'validation',
             name: 'API Input Validation',
             status: 'active',
-            description: 'All inputs validated with Zod schemas',
-            details: 'Server-side validation ensures malicious data never reaches the database. Type-safe schemas prevent injection attacks.',
+            description: 'Todas las entradas se validan con esquemas Zod',
+            details: 'La validación del lado del servidor garantiza que los datos maliciosos nunca lleguen a la base de datos. Los esquemas con tipado seguro previenen ataques de inyección.',
             example: `// Dashboard creation schema
 const schema = z.object({
   name: z.string().min(1).max(100),
@@ -39,8 +39,8 @@ const schema = z.object({
             id: 'middleware',
             name: 'Auth Middleware',
             status: 'active',
-            description: 'Protected routes require authentication',
-            details: 'Next.js middleware checks authentication before rendering protected pages. Unauthorized users are redirected to login.',
+            description: 'Las rutas protegidas requieren autenticación',
+            details: 'El middleware de Next.js verifica la autenticación antes de renderizar las páginas protegidas. Los usuarios no autorizados se redirigen al inicio de sesión.',
             example: `// Protect dashboard routes
 export function middleware(request) {
   const session = await getSession()
@@ -54,65 +54,67 @@ export function middleware(request) {
             id: 'encryption',
             name: 'Data Encryption',
             status: 'active',
-            description: 'All data encrypted at rest and in transit',
-            details: 'Supabase provides AES-256 encryption at rest. All connections use TLS 1.3 for data in transit.',
-            example: 'Automatic encryption handled by Supabase infrastructure'
+            description: 'Todos los datos están cifrados en reposo y en tránsito',
+            details: 'Supabase proporciona cifrado AES-256 en reposo. Todas las conexiones usan TLS 1.3 para los datos en tránsito.',
+            example: 'Cifrado automático gestionado por la infraestructura de Supabase'
         }
     ]
 
+    const activeFeature = features.find((feature) => feature.id === selectedFeature)
+
     return (
-        <div className="bg-white rounded-xl border border-slate-200 p-8">
+        <div className="bg-cream-100 rounded-xl border border-cream-200 p-8">
             <div className="flex items-center gap-3 mb-6">
-                <div className="h-10 w-10 bg-red-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="h-10 w-10 bg-clay-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-clay-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Security & Data Protection</h2>
-                    <p className="text-slate-600">Enterprise-grade security built-in</p>
+                    <h2 className="text-2xl font-bold text-ink-900">Seguridad y protección de datos</h2>
+                    <p className="text-ink-600">Seguridad de nivel empresarial integrada</p>
                 </div>
             </div>
 
             {/* Features Table */}
-            <div className="overflow-hidden rounded-lg border border-slate-200">
-                <table className="min-w-full divide-y divide-slate-200">
-                    <thead className="bg-slate-50">
+            <div className="overflow-hidden rounded-lg border border-cream-200">
+                <table className="min-w-full divide-y divide-cream-200">
+                    <thead className="bg-cream-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                                Security Feature
+                            <th className="px-6 py-3 text-left text-xs font-medium text-ink-500 uppercase tracking-wider">
+                                Característica de seguridad
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                                Status
+                            <th className="px-6 py-3 text-left text-xs font-medium text-ink-500 uppercase tracking-wider">
+                                Estado
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                                Description
+                            <th className="px-6 py-3 text-left text-xs font-medium text-ink-500 uppercase tracking-wider">
+                                Descripción
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-medium text-ink-500 uppercase tracking-wider">
 
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-slate-200">
+                    <tbody className="bg-cream-100 divide-y divide-cream-200">
                         {features.map((feature) => (
-                            <tr key={feature.id} className="hover:bg-slate-50 transition">
+                            <tr key={feature.id} className="hover:bg-cream-50 transition">
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="font-medium text-slate-900">{feature.name}</div>
+                                    <div className="font-medium text-ink-900">{feature.name}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        ✓ Active
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-success-100 text-success-800">
+                                        ✓ Activo
                                     </span>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="text-sm text-slate-600">{feature.description}</div>
+                                    <div className="text-sm text-ink-600">{feature.description}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                                     <button
                                         onClick={() => setSelectedFeature(selectedFeature === feature.id ? null : feature.id)}
-                                        className="text-blue-600 hover:text-blue-800 font-medium"
+                                        className="text-sage-600 hover:text-sage-800 font-medium"
                                     >
-                                        {selectedFeature === feature.id ? 'Hide' : 'View'} Details
+                                        {selectedFeature === feature.id ? 'Ocultar' : 'Mostrar'} detalles
                                     </button>
                                 </td>
                             </tr>
@@ -122,35 +124,29 @@ export function middleware(request) {
             </div>
 
             {/* Feature Details (Expandable) */}
-            {selectedFeature && (
-                <div className="mt-6 p-6 bg-slate-50 rounded-lg border border-slate-200">
-                    {features.map((feature) => (
-                        selectedFeature === feature.id && (
-                            <div key={feature.id}>
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.name}</h3>
-                                <p className="text-slate-700 mb-4">{feature.details}</p>
-                                <div className="bg-slate-900 rounded-lg p-4 overflow-x-auto">
-                                    <pre className="text-sm text-green-400 font-mono">
-                                        {feature.example}
-                                    </pre>
-                                </div>
-                            </div>
-                        )
-                    ))}
+            {activeFeature && (
+                <div className="mt-6 p-6 bg-cream-50 rounded-lg border border-cream-200">
+                    <h3 className="text-lg font-semibold text-ink-900 mb-2">{activeFeature.name}</h3>
+                    <p className="text-ink-700 mb-4">{activeFeature.details}</p>
+                    <div className="bg-ink-900 rounded-lg p-4 overflow-x-auto">
+                        <pre className="text-sm text-cream-100 font-mono">
+                            {activeFeature.example}
+                        </pre>
+                    </div>
                 </div>
             )}
 
             {/* Compliance Badges */}
-            <div className="mt-6 pt-6 border-t border-slate-200">
-                <p className="text-sm text-slate-600 mb-3 font-medium">Compliance & Standards:</p>
+            <div className="mt-6 pt-6 border-t border-cream-200">
+                <p className="text-sm text-ink-600 mb-3 font-medium">Cumplimiento y estándares:</p>
                 <div className="flex gap-3">
-                    <div className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm font-medium text-blue-700">
+                    <div className="px-4 py-2 bg-sage-50 border border-sage-200 rounded-lg text-sm font-medium text-sage-700">
                         SOC 2 Type II Ready
                     </div>
-                    <div className="px-4 py-2 bg-green-50 border border-green-200 rounded-lg text-sm font-medium text-green-700">
+                    <div className="px-4 py-2 bg-clay-50 border border-clay-200 rounded-lg text-sm font-medium text-clay-700">
                         GDPR Compliant
                     </div>
-                    <div className="px-4 py-2 bg-purple-50 border border-purple-200 rounded-lg text-sm font-medium text-purple-700">
+                    <div className="px-4 py-2 bg-sage-50 border border-sage-200 rounded-lg text-sm font-medium text-sage-700">
                         HIPAA Compatible
                     </div>
                 </div>

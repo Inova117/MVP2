@@ -1,4 +1,7 @@
-import { cn } from '@/lib/utils'
+'use client'
+
+import { useState } from 'react'
+import { cn, getInitials } from '@/lib/utils'
 
 interface AvatarUploadProps {
     currentUrl?: string
@@ -6,12 +9,8 @@ interface AvatarUploadProps {
 }
 
 export function AvatarUpload({ currentUrl, userName }: AvatarUploadProps) {
-    const initials = userName
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2)
+    const initials = getInitials(userName)
+    const [showHint, setShowHint] = useState(false)
 
     return (
         <div className="flex items-center gap-6">
@@ -20,16 +19,16 @@ export function AvatarUpload({ currentUrl, userName }: AvatarUploadProps) {
                     <img
                         src={currentUrl}
                         alt={userName}
-                        className="h-24 w-24 rounded-full object-cover ring-4 ring-gray-100 dark:ring-gray-800"
+                        className="h-24 w-24 rounded-full object-cover ring-4 ring-cream-100"
                     />
                 ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 text-2xl font-bold text-white ring-4 ring-gray-100 dark:ring-gray-800">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-sage-600 text-2xl font-bold text-cream-50 ring-4 ring-cream-100">
                         {initials}
                     </div>
                 )}
-                <div className="absolute bottom-0 right-0 rounded-full bg-white dark:bg-gray-800 p-1 shadow-lg">
+                <div className="absolute bottom-0 right-0 rounded-full bg-cream-50 p-1 shadow-lg">
                     <svg
-                        className="h-5 w-5 text-gray-600 dark:text-gray-400"
+                        className="h-5 w-5 text-ink-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -54,19 +53,20 @@ export function AvatarUpload({ currentUrl, userName }: AvatarUploadProps) {
                     type="button"
                     className={cn(
                         'rounded-lg px-4 py-2 text-sm font-medium transition-colors',
-                        'bg-gray-100 text-gray-700 hover:bg-gray-200',
-                        'dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                        'bg-cream-100 text-ink-700 hover:bg-cream-200'
                     )}
-                    onClick={() => {
-                        // Mock file input - in real app, would trigger file picker
-                        alert('Avatar upload is mocked in demo mode')
-                    }}
+                    onClick={() => setShowHint(true)}
                 >
-                    Change Photo
+                    Cambiar foto
                 </button>
-                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    JPG, PNG or GIF. Max 2MB.
+                <p className="mt-2 text-xs text-ink-500">
+                    JPG, PNG o GIF. Máx. 2 MB.
                 </p>
+                {showHint && (
+                    <p className="mt-1 text-xs text-ink-400">
+                        La carga de fotos estará disponible próximamente.
+                    </p>
+                )}
             </div>
         </div>
     )

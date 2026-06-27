@@ -29,39 +29,39 @@ export function RejectModal({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
-                className="absolute inset-0 bg-gray-900/50 backdrop-blur-sm"
+                className="absolute inset-0 bg-ink-900/40 backdrop-blur-sm"
                 onClick={onCancel}
             />
-            <div className="relative w-full max-w-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-xl">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Reject Appointment
+            <div className="relative w-full max-w-md rounded-2xl border border-cream-200 bg-cream-50 p-6 shadow-xl">
+                <h3 className="text-lg font-semibold text-ink-900">
+                    Rechazar cita
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    You are about to reject "{appointmentTitle}". Please provide a reason.
+                <p className="mt-2 text-sm text-ink-600">
+                    Estás por rechazar «{appointmentTitle}». Indica un motivo.
                 </p>
 
                 <div className="mt-4">
-                    <Label htmlFor="reason">Reason for rejection</Label>
+                    <Label htmlFor="reason">Motivo del rechazo</Label>
                     <textarea
                         id="reason"
                         rows={4}
                         value={reason}
                         onChange={(e) => setReason(e.target.value)}
-                        className="mt-2 flex w-full rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white transition-all focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-100 dark:focus:ring-primary-900/30 resize-none"
-                        placeholder="e.g., Schedule conflict, not available..."
+                        className="mt-2 flex w-full rounded-lg border-2 border-cream-300 bg-cream-50 px-4 py-3 text-sm text-ink-900 transition-all focus:border-sage-400 focus:outline-none focus:ring-4 focus:ring-sage-200 resize-none"
+                        placeholder="p. ej., conflicto de horario, no disponible…"
                     />
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-3">
                     <Button variant="outline" onClick={onCancel}>
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button
                         onClick={handleConfirm}
                         disabled={!reason.trim()}
-                        className="bg-error-600 hover:bg-error-700 dark:bg-error-600 dark:hover:bg-error-700"
+                        className="bg-error-600 hover:bg-error-700"
                     >
-                        Reject Appointment
+                        Rechazar cita
                     </Button>
                 </div>
             </div>

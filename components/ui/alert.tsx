@@ -13,15 +13,15 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
                 role="alert"
                 className={cn(
                     'relative w-full rounded-lg p-4 text-sm font-medium',
-                    'border-2 transition-all duration-200',
+                    'border transition-all duration-200',
                     {
-                        'bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800 text-error-800 dark:text-error-300':
+                        'bg-error-50 border-error-200 text-error-800':
                             variant === 'error',
-                        'bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800 text-success-800 dark:text-success-300':
+                        'bg-success-50 border-success-200 text-success-800':
                             variant === 'success',
-                        'bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800 text-warning-800 dark:text-warning-300':
+                        'bg-warning-50 border-warning-200 text-warning-800':
                             variant === 'warning',
-                        'bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300':
+                        'bg-info-50 border-info-200 text-info-800':
                             variant === 'info',
                     },
                     className

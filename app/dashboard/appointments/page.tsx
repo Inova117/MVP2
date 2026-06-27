@@ -95,11 +95,11 @@ export default function AppointmentsPage() {
                 )
             )
 
-            setSuccess('Appointment confirmed successfully!')
+            setSuccess('Cita confirmada correctamente.')
             setTimeout(() => setSuccess(null), 3000)
         } catch (err) {
             console.error('Failed to confirm appointment:', err)
-            setError('Failed to confirm appointment')
+            setError('No se pudo confirmar la cita.')
         } finally {
             setActionLoading(false)
         }
@@ -133,11 +133,11 @@ export default function AppointmentsPage() {
             )
 
             setRejectModal({ isOpen: false, appointmentId: '', title: '' })
-            setSuccess('Appointment rejected successfully!')
+            setSuccess('Cita rechazada correctamente.')
             setTimeout(() => setSuccess(null), 3000)
         } catch (err) {
             console.error('Failed to reject appointment:', err)
-            setError('Failed to reject appointment')
+            setError('No se pudo rechazar la cita.')
         } finally {
             setActionLoading(false)
         }
@@ -160,11 +160,11 @@ export default function AppointmentsPage() {
                 )
             )
 
-            setSuccess('Appointment marked as completed!')
+            setSuccess('Cita marcada como completada.')
             setTimeout(() => setSuccess(null), 3000)
         } catch (err) {
             console.error('Failed to complete appointment:', err)
-            setError('Failed to complete appointment')
+            setError('No se pudo completar la cita.')
         } finally {
             setActionLoading(false)
         }
@@ -174,9 +174,9 @@ export default function AppointmentsPage() {
         return (
             <div className="flex items-center justify-center p-12">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-500 border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                        Loading appointments...
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sage-500 border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-ink-600">
+                        Cargando citas…
                     </p>
                 </div>
             </div>
@@ -193,11 +193,11 @@ export default function AppointmentsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    My Appointments
+                <h1 className="text-3xl font-bold text-ink-900">
+                    Mis citas
                 </h1>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Manage your appointments and bookings
+                <p className="mt-2 text-ink-600">
+                    Gestiona tus citas y reservas
                 </p>
             </div>
 
@@ -212,9 +212,9 @@ export default function AppointmentsPage() {
 
             <div className="space-y-4">
                 {filteredAppointments.length === 0 ? (
-                    <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-12 text-center">
+                    <div className="rounded-lg border border-cream-200 bg-cream-100 p-12 text-center">
                         <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
+                            className="mx-auto h-12 w-12 text-ink-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -226,13 +226,13 @@ export default function AppointmentsPage() {
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                         </svg>
-                        <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                            No {activeTab} appointments
+                        <h3 className="mt-4 text-lg font-medium text-ink-900">
+                            No se encontraron citas
                         </h3>
-                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                            {activeTab === 'pending' && 'No pending appointments requiring action.'}
-                            {activeTab === 'upcoming' && 'No upcoming confirmed appointments.'}
-                            {activeTab === 'past' && 'No completed appointments yet.'}
+                        <p className="mt-2 text-sm text-ink-600">
+                            {activeTab === 'pending' && 'No tienes citas pendientes que requieran acción.'}
+                            {activeTab === 'upcoming' && 'No tienes citas próximas confirmadas.'}
+                            {activeTab === 'past' && 'Aún no tienes citas completadas.'}
                         </p>
                     </div>
                 ) : (

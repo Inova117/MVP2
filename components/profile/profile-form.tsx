@@ -20,10 +20,10 @@ const SPECIALTIES = [
 ]
 
 const profileSchema = z.object({
-    full_name: z.string().min(2, 'Name must be at least 2 characters'),
+    full_name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
     specialty: z.string().optional(),
-    bio: z.string().max(500, 'Bio must be less than 500 characters').optional(),
-    hourly_rate: z.number().min(0, 'Rate must be positive').optional(),
+    bio: z.string().max(500, 'La descripción debe tener menos de 500 caracteres').optional(),
+    hourly_rate: z.number().min(0, 'La tarifa debe ser positiva').optional(),
 })
 
 type ProfileFormData = z.infer<typeof profileSchema>
@@ -64,8 +64,8 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
         <form onSubmit={handleSubmit(onSave)} className="space-y-8">
             {/* Avatar */}
             <div>
-                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-4">
-                    Profile Photo
+                <h3 className="text-sm font-medium text-ink-900 mb-4">
+                    Foto de perfil
                 </h3>
                 <AvatarUpload
                     currentUrl={initialData.avatar_url}
@@ -75,13 +75,13 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
 
             {/* Basic Info */}
             <div className="space-y-4">
-                <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                    Basic Information
+                <h3 className="text-sm font-medium text-ink-900">
+                    Información personal
                 </h3>
 
                 <div>
                     <Label htmlFor="full_name" required>
-                        Full Name
+                        Nombre completo
                     </Label>
                     <Input
                         id="full_name"
@@ -91,28 +91,28 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">Correo electrónico</Label>
                     <Input
                         id="email"
                         value={initialData.email}
                         disabled
-                        className="bg-gray-50 dark:bg-gray-900"
+                        className="bg-cream-200 text-ink-500 cursor-not-allowed"
                     />
-                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        Email cannot be changed
+                    <p className="mt-1 text-xs text-ink-500">
+                        El correo no se puede cambiar
                     </p>
                 </div>
 
                 <div>
-                    <Label htmlFor="role">Role</Label>
+                    <Label htmlFor="role">Rol</Label>
                     <div className="mt-2">
                         <span
                             className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${isProfessional
-                                ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300'
-                                : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                                ? 'bg-sage-100 text-sage-700'
+                                : 'bg-clay-100 text-clay-700'
                                 }`}
                         >
-                            {isProfessional ? '👨‍💼 Professional' : '👤 Client'}
+                            {isProfessional ? '👨‍💼 Profesional' : '👤 Cliente'}
                         </span>
                     </div>
                 </div>
@@ -120,19 +120,19 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
 
             {/* Professional-Only Fields */}
             {isProfessional && (
-                <div className="space-y-4 rounded-lg border border-primary-200 dark:border-primary-800 bg-primary-50/50 dark:bg-primary-900/10 p-6">
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                        Professional Information
+                <div className="space-y-4 rounded-lg border border-sage-200 bg-sage-50 p-6">
+                    <h3 className="text-sm font-medium text-ink-900">
+                        Información profesional
                     </h3>
 
                     <div>
-                        <Label htmlFor="specialty">Specialty</Label>
+                        <Label htmlFor="specialty">Especialidad</Label>
                         <select
                             id="specialty"
                             {...register('specialty')}
-                            className="flex h-12 w-full rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white transition-all focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-100 dark:focus:ring-primary-900/30"
+                            className="flex h-12 w-full rounded-lg border-2 border-cream-300 bg-cream-50 px-4 py-3 text-sm text-ink-900 transition-all focus:border-sage-400 focus:outline-none focus:ring-2 focus:ring-sage-200"
                         >
-                            <option value="">Select a specialty</option>
+                            <option value="">Selecciona una especialidad</option>
                             {SPECIALTIES.map((specialty) => (
                                 <option key={specialty} value={specialty}>
                                     {specialty}
@@ -140,31 +140,31 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
                             ))}
                         </select>
                         {errors.specialty && (
-                            <p className="mt-1.5 text-sm text-error-600 dark:text-error-400">
+                            <p className="mt-1.5 text-sm text-error-600">
                                 {errors.specialty.message}
                             </p>
                         )}
                     </div>
 
                     <div>
-                        <Label htmlFor="bio">Bio</Label>
+                        <Label htmlFor="bio">Descripción</Label>
                         <textarea
                             id="bio"
                             rows={4}
                             {...register('bio')}
-                            className="flex w-full rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white transition-all focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-100 dark:focus:ring-primary-900/30 resize-none"
-                            placeholder="Tell clients about yourself..."
+                            className="flex w-full rounded-lg border-2 border-cream-300 bg-cream-50 px-4 py-3 text-sm text-ink-900 transition-all focus:border-sage-400 focus:outline-none focus:ring-2 focus:ring-sage-200 resize-none"
+                            placeholder="Cuéntales a tus clientes sobre ti…"
                         />
                         <div className="mt-1.5 flex items-center justify-between">
                             {errors.bio && (
-                                <p className="text-sm text-error-600 dark:text-error-400">
+                                <p className="text-sm text-error-600">
                                     {errors.bio.message}
                                 </p>
                             )}
                             <p
                                 className={`ml-auto text-xs ${bioLength > 500
-                                    ? 'text-error-600 dark:text-error-400'
-                                    : 'text-gray-500 dark:text-gray-400'
+                                    ? 'text-error-600'
+                                    : 'text-ink-500'
                                     }`}
                             >
                                 {bioLength}/500
@@ -173,7 +173,7 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
                     </div>
 
                     <div>
-                        <Label htmlFor="hourly_rate">Hourly Rate (USD)</Label>
+                        <Label htmlFor="hourly_rate">Tarifa por hora (USD)</Label>
                         <Input
                             id="hourly_rate"
                             type="number"
@@ -188,16 +188,16 @@ export function ProfileForm({ initialData, onSave }: ProfileFormProps) {
             )}
 
             {/* Actions */}
-            <div className="flex items-center justify-end gap-4 border-t border-gray-200 dark:border-gray-800 pt-6">
+            <div className="flex items-center justify-end gap-4 border-t border-cream-200 pt-6">
                 <Button
                     type="button"
                     variant="outline"
                     onClick={() => window.location.reload()}
                 >
-                    Cancel
+                    Cancelar
                 </Button>
                 <Button type="submit" loading={isSubmitting}>
-                    Save Changes
+                    Guardar cambios
                 </Button>
             </div>
         </form>

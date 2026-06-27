@@ -25,14 +25,14 @@ export function DayScheduleEditor({
     onDeleteSlot,
 }: DayScheduleEditorProps) {
     return (
-        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+        <div className="rounded-2xl border border-cream-200 bg-cream-100 p-6">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-ink-900">
                     {dayName}
                 </h3>
                 {slots.length === 0 && (
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                        No availability
+                    <span className="text-sm text-ink-500">
+                        Sin disponibilidad
                     </span>
                 )}
             </div>
@@ -57,7 +57,7 @@ export function DayScheduleEditor({
                     <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
-                    Add Time Slot
+                    Agregar horario
                 </Button>
             </div>
         </div>

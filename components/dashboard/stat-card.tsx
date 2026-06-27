@@ -1,83 +1,43 @@
 import { cn } from '@/lib/utils'
 
+type StatColor = 'sage' | 'clay' | 'success' | 'warning' | 'info'
+
 interface StatCardProps {
     label: string
     value: string | number
     icon: React.ReactNode
-    trend?: {
-        value: number
-        isPositive: boolean
-    }
-    color?: 'primary' | 'secondary' | 'success' | 'warning'
+    hint?: string
+    color?: StatColor
+}
+
+const colorMap: Record<StatColor, { bg: string; fg: string }> = {
+    sage: { bg: 'bg-sage-100', fg: 'text-sage-700' },
+    clay: { bg: 'bg-clay-100', fg: 'text-clay-700' },
+    success: { bg: 'bg-success-100', fg: 'text-success-700' },
+    warning: { bg: 'bg-warning-100', fg: 'text-warning-700' },
+    info: { bg: 'bg-info-100', fg: 'text-info-700' },
 }
 
 export function StatCard({
     label,
     value,
     icon,
-    trend,
-    color = 'primary',
+    hint,
+    color = 'sage',
 }: StatCardProps) {
+    const c = colorMap[color]
     return (
-        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-            <div className="flex items-center justify-between">
+        <div className="rounded-2xl border border-cream-200/80 bg-cream-100 p-6 shadow-tactile-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-tactile-lg">
+            <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                        {label}
-                    </p>
-                    <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-sm font-medium text-ink-500">{label}</p>
+                    <p className="mt-2 font-serif text-3xl font-bold text-ink-900">
                         {value}
                     </p>
-                    {trend && (
-                        <div className="mt-2 flex items-center gap-1">
-                            <svg
-                                className={cn(
-                                    'h-4 w-4',
-                                    trend.isPositive ? 'text-success-500' : 'text-error-500',
-                                    !trend.isPositive && 'rotate-180'
-                                )}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 10l7-7m0 0l7 7m-7-7v18"
-                                />
-                            </svg>
-                            <span
-                                className={cn(
-                                    'text-sm font-medium',
-                                    trend.isPositive ? 'text-success-600 dark:text-success-400' : 'text-error-600 dark:text-error-400'
-                                )}
-                            >
-                                {trend.value}%
-                            </span>
-                        </div>
-                    )}
+                    {hint && <p className="mt-1.5 text-xs text-ink-400">{hint}</p>}
                 </div>
-                <div
-                    className={cn(
-                        'rounded-full p-3',
-                        color === 'primary' && 'bg-primary-100 dark:bg-primary-900/30',
-                        color === 'secondary' && 'bg-secondary-100 dark:bg-secondary-900/30',
-                        color === 'success' && 'bg-success-100 dark:bg-success-900/30',
-                        color === 'warning' && 'bg-warning-100 dark:bg-warning-900/30'
-                    )}
-                >
-                    <div
-                        className={cn(
-                            'h-8 w-8',
-                            color === 'primary' && 'text-primary-600 dark:text-primary-400',
-                            color === 'secondary' && 'text-secondary-600 dark:text-secondary-400',
-                            color === 'success' && 'text-success-600 dark:text-success-400',
-                            color === 'warning' && 'text-warning-600 dark:text-warning-400'
-                        )}
-                    >
-                        {icon}
-                    </div>
+                <div className={cn('rounded-xl p-3', c.bg)}>
+                    <div className={cn('h-7 w-7', c.fg)}>{icon}</div>
                 </div>
             </div>
         </div>

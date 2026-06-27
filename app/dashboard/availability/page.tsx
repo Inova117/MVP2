@@ -10,13 +10,13 @@ import { Alert } from '@/components/ui/alert'
 import type { AvailabilitySetting, Session } from '@/lib/mock-db/types'
 
 const DAYS = [
-    { name: 'Sunday', number: 0 },
-    { name: 'Monday', number: 1 },
-    { name: 'Tuesday', number: 2 },
-    { name: 'Wednesday', number: 3 },
-    { name: 'Thursday', number: 4 },
-    { name: 'Friday', number: 5 },
-    { name: 'Saturday', number: 6 },
+    { name: 'Domingo', number: 0 },
+    { name: 'Lunes', number: 1 },
+    { name: 'Martes', number: 2 },
+    { name: 'Miércoles', number: 3 },
+    { name: 'Jueves', number: 4 },
+    { name: 'Viernes', number: 5 },
+    { name: 'Sábado', number: 6 },
 ]
 
 const DURATIONS = [30, 60, 90, 120] as const
@@ -125,7 +125,7 @@ export default function AvailabilityPage() {
             setSuccess(true)
             setTimeout(() => setSuccess(false), 3000)
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save availability')
+            setError(err instanceof Error ? err.message : 'No se pudo guardar la disponibilidad')
         } finally {
             setSaving(false)
         }
@@ -135,9 +135,9 @@ export default function AvailabilityPage() {
         return (
             <div className="flex items-center justify-center p-12">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-500 border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                        Loading availability...
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sage-500 border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-ink-600">
+                        Cargando…
                     </p>
                 </div>
             </div>
@@ -147,32 +147,32 @@ export default function AvailabilityPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Availability Settings
+                <h1 className="text-3xl font-bold text-ink-900">
+                    Disponibilidad
                 </h1>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Set your working hours and appointment duration
+                <p className="mt-2 text-ink-600">
+                    Configura tu disponibilidad semanal
                 </p>
             </div>
 
             {success && (
-                <Alert variant="success">Availability updated successfully!</Alert>
+                <Alert variant="success">Guardado correctamente</Alert>
             )}
 
             {error && <Alert variant="error">{error}</Alert>}
 
             {/* Appointment Duration */}
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-                <Label htmlFor="duration">Appointment Duration</Label>
+            <div className="rounded-2xl border border-cream-200 bg-cream-100 p-6">
+                <Label htmlFor="duration">Duración de la cita</Label>
                 <select
                     id="duration"
                     value={duration}
                     onChange={(e) => setDuration(Number(e.target.value) as 30 | 60 | 90 | 120)}
-                    className="mt-2 flex h-12 w-full max-w-xs rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white transition-all focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-100 dark:focus:ring-primary-900/30"
+                    className="mt-2 flex h-12 w-full max-w-xs rounded-lg border-2 border-cream-300 bg-cream-50 px-4 py-3 text-sm text-ink-900 transition-all focus:border-sage-400 focus:outline-none focus:ring-2 focus:ring-sage-200"
                 >
                     {DURATIONS.map((d) => (
                         <option key={d} value={d}>
-                            {d} minutes
+                            {d} minutos
                         </option>
                     ))}
                 </select>
@@ -180,8 +180,8 @@ export default function AvailabilityPage() {
 
             {/* Weekly Schedule */}
             <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Weekly Schedule
+                <h2 className="text-lg font-semibold text-ink-900">
+                    Horario semanal
                 </h2>
                 {DAYS.map((day) => (
                     <DayScheduleEditor
@@ -197,16 +197,16 @@ export default function AvailabilityPage() {
             </div>
 
             {/* Save Button */}
-            <div className="flex items-center justify-end gap-4 border-t border-gray-200 dark:border-gray-800 pt-6">
+            <div className="flex items-center justify-end gap-4 border-t border-cream-200 pt-6">
                 <Button
                     type="button"
                     variant="outline"
                     onClick={() => router.push('/dashboard')}
                 >
-                    Cancel
+                    Cancelar
                 </Button>
                 <Button onClick={handleSave} loading={saving}>
-                    Save Availability
+                    Guardar cambios
                 </Button>
             </div>
         </div>

@@ -54,9 +54,9 @@ export default function ProfessionalsPage() {
         return (
             <div className="flex items-center justify-center p-12">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-500 border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                        Loading professionals...
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sage-500 border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-ink-600">
+                        Cargando…
                     </p>
                 </div>
             </div>
@@ -66,11 +66,11 @@ export default function ProfessionalsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Find a Professional
+                <h1 className="text-3xl font-bold text-ink-900">
+                    Buscar profesionales
                 </h1>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Book appointments with top professionals in various fields
+                <p className="mt-2 text-ink-600">
+                    Reserva citas con profesionales de distintas áreas
                 </p>
             </div>
 
@@ -82,15 +82,15 @@ export default function ProfessionalsPage() {
             />
 
             {filteredProfessionals.length === 0 ? (
-                <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-12 text-center">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-3xl">
+                <div className="rounded-2xl border border-cream-200 bg-cream-100 p-12 text-center">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sage-100 text-3xl">
                         🔍
                     </div>
-                    <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                        No professionals found
+                    <h3 className="mt-4 text-lg font-medium text-ink-900">
+                        No se encontraron profesionales
                     </h3>
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                        Try adjusting your search or filters to find what you&apos;re looking for.
+                    <p className="mt-2 text-sm text-ink-600">
+                        Ajusta tu búsqueda o los filtros para encontrar lo que buscas.
                     </p>
                 </div>
             ) : (

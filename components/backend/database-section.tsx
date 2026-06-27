@@ -26,8 +26,8 @@ export function DatabaseSection() {
                 { name: 'bio', type: 'text', constraint: 'MAX 500 chars' },
                 { name: 'hourly_rate', type: 'decimal', constraint: 'NULLABLE' },
             ],
-            rlsPolicy: 'Public SELECT, users can UPDATE only their own profile',
-            relationships: '1-to-many with appointments (as client), 1-to-many with appointments (as professional), 1-to-many with availability_settings',
+            rlsPolicy: 'SELECT público, los usuarios solo pueden hacer UPDATE de su propio perfil',
+            relationships: '1 a muchos con appointments (como cliente), 1 a muchos con appointments (como profesional), 1 a muchos con availability_settings',
         },
         availability_settings: {
             columns: [
@@ -38,8 +38,8 @@ export function DatabaseSection() {
                 { name: 'end_time', type: 'time', constraint: 'HH:MM format' },
                 { name: 'appointment_duration', type: 'integer', constraint: '30 | 60 | 90 | 120 minutes' },
             ],
-            rlsPolicy: 'Public SELECT, only owning professional can INSERT/UPDATE/DELETE',
-            relationships: 'Many-to-one with profiles (professional)',
+            rlsPolicy: 'SELECT público, solo el profesional propietario puede hacer INSERT/UPDATE/DELETE',
+            relationships: 'Muchos a uno con profiles (profesional)',
         },
         appointments: {
             columns: [
@@ -52,36 +52,38 @@ export function DatabaseSection() {
                 { name: 'end_time', type: 'timestamp', constraint: 'NOT NULL' },
                 { name: 'status', type: 'enum', constraint: "'pending' | 'confirmed' | 'cancelled' | 'completed'" },
             ],
-            rlsPolicy: 'Users see only appointments where they are involved. Clients can INSERT. Role-based UPDATE rules.',
-            relationships: 'Many-to-one with profiles (client), Many-to-one with profiles (professional)',
-            constraints: 'no_overlap: Prevents double-booking for professionals',
+            rlsPolicy: 'Los usuarios solo ven las citas en las que participan. Los clientes pueden hacer INSERT. Reglas de UPDATE según el rol.',
+            relationships: 'Muchos a uno con profiles (cliente), Muchos a uno con profiles (profesional)',
+            constraints: 'no_overlap: Evita la doble reserva para los profesionales',
         },
     }
+
+    const detail = selectedTable ? tableDetails[selectedTable] : undefined
 
     return (
         <section className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    🗄️ Database Schema
+                <h2 className="text-3xl font-bold text-ink-900">
+                    🗄️ Esquema de base de datos
                 </h2>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                    Relational data model with enforced integrity and row-level security
+                <p className="mt-2 text-ink-600">
+                    Modelo de datos relacional con integridad garantizada y seguridad a nivel de fila
                 </p>
             </div>
 
             {/* ERD Diagram */}
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+            <div className="rounded-lg border border-cream-200 bg-cream-100 p-6">
                 <div className="text-center text-sm font-mono space-y-8">
                     {/* Profiles */}
                     <div
                         className={`inline-block cursor-pointer rounded-lg border-2 p-4 transition-all ${selectedTable === 'profiles'
-                            ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/30 shadow-lg'
-                            : 'border-gray-300 dark:border-gray-600 hover:border-sky-400 hover:shadow-md'
+                            ? 'border-sage-500 bg-sage-50 shadow-lg'
+                            : 'border-cream-300 hover:border-sage-400 hover:shadow-md'
                             }`}
                         onClick={() => setSelectedTable(selectedTable === 'profiles' ? null : 'profiles')}
                     >
-                        <div className="font-bold text-lg text-gray-900 dark:text-white">PROFILES</div>
-                        <div className="mt-2 space-y-1 text-left text-xs text-gray-600 dark:text-gray-400">
+                        <div className="font-bold text-lg text-ink-900">PROFILES</div>
+                        <div className="mt-2 space-y-1 text-left text-xs text-ink-600">
                             <div>• id (PK)</div>
                             <div>• email (UNIQUE)</div>
                             <div>• role</div>
@@ -89,19 +91,19 @@ export function DatabaseSection() {
                         </div>
                     </div>
 
-                    <div className="text-gray-400">↓ 1:N ↓</div>
+                    <div className="text-ink-400">↓ 1:N ↓</div>
 
                     {/* Appointments and Availability Side by Side */}
                     <div className="flex items-start justify-center gap-8">
                         <div
                             className={`inline-block cursor-pointer rounded-lg border-2 p-4 transition-all ${selectedTable === 'appointments'
-                                ? 'border-fuchsia-500 bg-fuchsia-50 dark:bg-fuchsia-900/30 shadow-lg'
-                                : 'border-gray-300 dark:border-gray-600 hover:border-fuchsia-400 hover:shadow-md'
+                                ? 'border-sage-500 bg-sage-50 shadow-lg'
+                                : 'border-cream-300 hover:border-sage-400 hover:shadow-md'
                                 }`}
                             onClick={() => setSelectedTable(selectedTable === 'appointments' ? null : 'appointments')}
                         >
-                            <div className="font-bold text-lg text-gray-900 dark:text-white">APPOINTMENTS</div>
-                            <div className="mt-2 space-y-1 text-left text-xs text-gray-600 dark:text-gray-400">
+                            <div className="font-bold text-lg text-ink-900">APPOINTMENTS</div>
+                            <div className="mt-2 space-y-1 text-left text-xs text-ink-600">
                                 <div>• id (PK)</div>
                                 <div>• client_id (FK)</div>
                                 <div>• professional_id (FK)</div>
@@ -111,15 +113,15 @@ export function DatabaseSection() {
 
                         <div
                             className={`inline-block cursor-pointer rounded-lg border-2 p-4 transition-all ${selectedTable === 'availability_settings'
-                                ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 shadow-lg'
-                                : 'border-gray-300 dark:border-gray-600 hover:border-purple-400 hover:shadow-md'
+                                ? 'border-sage-500 bg-sage-50 shadow-lg'
+                                : 'border-cream-300 hover:border-sage-400 hover:shadow-md'
                                 }`}
                             onClick={() =>
                                 setSelectedTable(selectedTable === 'availability_settings' ? null : 'availability_settings')
                             }
                         >
-                            <div className="font-bold text-lg text-gray-900 dark:text-white">AVAILABILITY_SETTINGS</div>
-                            <div className="mt-2 space-y-1 text-left text-xs text-gray-600 dark:text-gray-400">
+                            <div className="font-bold text-lg text-ink-900">AVAILABILITY_SETTINGS</div>
+                            <div className="mt-2 space-y-1 text-left text-xs text-ink-600">
                                 <div>• id (PK)</div>
                                 <div>• professional_id (FK)</div>
                                 <div>• day_of_week</div>
@@ -128,35 +130,35 @@ export function DatabaseSection() {
                         </div>
                     </div>
 
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Click on a table to view details
+                    <p className="text-xs text-ink-500">
+                        Haz clic en una tabla para ver detalles
                     </p>
                 </div>
             </div>
 
             {/* Table Details Panel */}
-            {selectedTable && tableDetails[selectedTable] && (
-                <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-                    <h3 className="text-xl font-bold capitalize text-gray-900 dark:text-white mb-4">
-                        {selectedTable.replace('_', ' ')} Table
+            {selectedTable && detail && (
+                <div className="rounded-lg border border-cream-200 bg-cream-100 p-6">
+                    <h3 className="text-xl font-bold capitalize text-ink-900 mb-4">
+                        Tabla {selectedTable.replace('_', ' ')}
                     </h3>
 
                     {/* Columns */}
                     <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                            Columns ({tableDetails[selectedTable].columns.length})
+                        <h4 className="text-sm font-semibold text-ink-700 mb-2">
+                            Columnas ({detail.columns.length})
                         </h4>
                         <div className="space-y-2">
-                            {tableDetails[selectedTable].columns.map((col) => (
+                            {detail.columns.map((col) => (
                                 <div
                                     key={col.name}
-                                    className="flex items-center justify-between rounded bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm"
+                                    className="flex items-center justify-between rounded bg-cream-50 px-3 py-2 text-sm"
                                 >
-                                    <span className="font-mono font-medium text-gray-900 dark:text-white">
+                                    <span className="font-mono font-medium text-ink-900">
                                         {col.name}
                                     </span>
-                                    <span className="text-gray-600 dark:text-gray-400">{col.type}</span>
-                                    <span className="text-xs text-gray-500 dark:text-gray-500">{col.constraint}</span>
+                                    <span className="text-ink-600">{col.type}</span>
+                                    <span className="text-xs text-ink-500">{col.constraint}</span>
                                 </div>
                             ))}
                         </div>
@@ -164,32 +166,32 @@ export function DatabaseSection() {
 
                     {/* RLS Policy */}
                     <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                            RLS Policy
+                        <h4 className="text-sm font-semibold text-ink-700 mb-2">
+                            Políticas (RLS)
                         </h4>
-                        <div className="rounded bg-green-50 dark:bg-green-900/20 px-3 py-2 text-sm text-green-800 dark:text-green-300">
-                            {tableDetails[selectedTable].rlsPolicy}
+                        <div className="rounded bg-success-50 px-3 py-2 text-sm text-success-800">
+                            {detail.rlsPolicy}
                         </div>
                     </div>
 
                     {/* Relationships */}
                     <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                            Relationships
+                        <h4 className="text-sm font-semibold text-ink-700 mb-2">
+                            Relaciones
                         </h4>
-                        <div className="rounded bg-sky-50 dark:bg-sky-900/20 px-3 py-2 text-sm text-sky-800 dark:text-sky-300">
-                            {tableDetails[selectedTable].relationships}
+                        <div className="rounded bg-info-50 px-3 py-2 text-sm text-info-800">
+                            {detail.relationships}
                         </div>
                     </div>
 
                     {/* Constraints (if any) */}
-                    {tableDetails[selectedTable].constraints && (
+                    {detail.constraints && (
                         <div>
-                            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                                Special Constraints
+                            <h4 className="text-sm font-semibold text-ink-700 mb-2">
+                                Restricciones especiales
                             </h4>
-                            <div className="rounded bg-orange-50 dark:bg-orange-900/20 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
-                                {tableDetails[selectedTable].constraints}
+                            <div className="rounded bg-warning-50 px-3 py-2 text-sm text-warning-800">
+                                {detail.constraints}
                             </div>
                         </div>
                     )}
